@@ -1,0 +1,33 @@
+{
+  "patient_name": "",
+  "age": "",
+  "gender": "",
+  "admission_date": "",
+  "discharge_date": "",
+  "primary_diagnosis": [
+    "Acute Gastroenteritis with Dehydration",
+    "Urinary Tract Infection"
+  ],
+  "secondary_diagnosis": [
+    "Thyroid Disorder",
+    "Grade I Fatty Liver Change",
+    "Mildly Oedematous Ascending Colon",
+    "Mildly Bulky Left Kidney",
+    "Minimal Ascites",
+    "Minimal Right Pleural Effusion",
+    "Mild Basal Subsegmental Lung Consolidation"
+  ],
+  "allergies": [],
+  "medications": [
+    "Ondansetron 4mg (Ondem)",
+    "Rabeprazole 20mg (Racipep)",
+    "Ondansetron 4mg (Emeset)",
+    "Pantoprazole 40mg (Pantop)",
+    "Norfloxacin/Tinidazole (Norflox TZ)",
+    "Loperamide"
+  ],
+  "procedures": [
+    "IV Cannulation and Fluid Administration",
+    "USG Abdomen and Pelvis"
+  ]
+}

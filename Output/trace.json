@@ -1,0 +1,40 @@
+[
+  {
+    "step": 1,
+    "reasoning": "Need source text from PDF",
+    "action": "Run OCR extraction",
+    "tool_used": "Tesseract OCR",
+    "result": "71 pages processed",
+    "next_decision": "Extract structured information"
+  },
+  {
+    "step": 2,
+    "reasoning": "Need structured patient data",
+    "action": "Load extracted patient JSON",
+    "tool_used": "Clinical Extractor",
+    "result": "Diagnoses, medications and procedures loaded",
+    "next_decision": "Run safety checks"
+  },
+  {
+    "step": 3,
+    "reasoning": "Need to identify risks",
+    "action": "Run conflict checker",
+    "tool_used": "Conflict Checker",
+    "result": [
+      "Duplicate Ondansetron medications detected",
+      "Multiple Proton Pump Inhibitors detected",
+      "Missing patient name",
+      "Missing age",
+      "Missing gender"
+    ],
+    "next_decision": "Escalate issues if required"
+  },
+  {
+    "step": 4,
+    "reasoning": "Need discharge summary",
+    "action": "Generate discharge summary",
+    "tool_used": "Gemini",
+    "result": "Summary generated successfully",
+    "next_decision": "Export outputs"
+  }
+]
