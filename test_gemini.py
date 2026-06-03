@@ -4,13 +4,16 @@ import os
 
 load_dotenv()
 
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
-)
+api_key = os.getenv("GEMINI_API_KEY")
+
+print("Key found:", bool(api_key))
+print("First 10 chars:", api_key[:10] if api_key else "None")
+
+client = genai.Client(api_key=api_key)
 
 response = client.models.generate_content(
     model="gemini-2.5-flash",
-    contents="Reply only with: Gemini Connected Successfully"
+    contents="Say OK"
 )
 
 print(response.text)

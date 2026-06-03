@@ -4,15 +4,12 @@ from agent.extractor import read_pdf
 from agent.conflict_checker import check_conflicts
 from agent.generate_summary import generate_discharge_summary
 
-print("Step 1: Reading PDF...")
+print("Step 1: Loading OCR text...")
 
-# OCR Extraction
-text = read_pdf("data/Patient 2.pdf")
+with open("output_patient2.txt", "r", encoding="utf-8") as f:
+    text = f.read()
 
-with open("output_patient2.txt", "w", encoding="utf-8") as f:
-    f.write(text)
-
-print("OCR completed")
+print("OCR text loaded")
 
 # Load Structured Data
 with open("structured_patient.json", "r", encoding="utf-8") as f:

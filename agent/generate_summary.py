@@ -1,13 +1,18 @@
 import json
 import os
+
 from dotenv import load_dotenv
 from google import genai
 
 load_dotenv()
 
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
-)
+API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not API_KEY:
+    raise ValueError("GEMINI_API_KEY not found in .env file")
+
+client = genai.Client(api_key=API_KEY)
+
 
 def generate_discharge_summary(patient_data):
 
@@ -45,15 +50,58 @@ Output format:
 
 ## Clinician Review Flags
 
-Important:
+Important Rules:
 - Do not hallucinate.
-- Mention missing information.
+- Mention missing information clearly.
 - Use professional medical language.
+- Mention medication conflicts if present.
+- Mention missing demographics if absent.
+- Generate a complete clinician-ready summary.
 """
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
-    )
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt
+        )
 
-    return response.text
+        return response.text
+
+    except Exception as e:
+
+        print("\nGemini API Error:")
+        print(str(e))
+
+        return f"""
+# DISCHARGE SUMMARY
+
+## Patient Demographics
+Information not available.
+
+## Primary Diagnosis
+{chr(10).join(['- ' + d for d in patient_data.get('primary_diagnosis', [])])}
+
+## Secondary Diagnoses
+{chr(10).join(['- ' + d for d in patient_data.get('secondary_diagnosis', [])])}
+
+## Procedures
+{chr(10).join(['- ' + p for p in patient_data.get('procedures', [])])}
+
+## Medications at Discharge
+{chr(10).join(['- ' + m for m in patient_data.get('medications', [])])}
+
+## Hospital Course
+Automatically generated fallback summary because Gemini service was unavailable.
+
+## Follow-up Instructions
+Clinician review required.
+
+## Pending Results
+Not provided.
+
+## Discharge Condition
+Stable.
+
+## Clinician Review Flags
+Gemini API unavailable during execution.
+"""
